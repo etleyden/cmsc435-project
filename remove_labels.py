@@ -32,10 +32,10 @@ def main():
                 if badSeq:
                     prot = remove_chars(prot, NNAA)
                 p.write(f"{prot}\n")
-                labels.append(line[1])
+                labels.append(line[1][:-1])
 
     
-    result = subprocess.run([f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o features.txt -j AAC"])
+    result = subprocess.run([f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o features.txt -j AAC"], shell=True)
 
     if result.returncode == 0:
         features = pd.read_csv("features.txt")
