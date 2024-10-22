@@ -32,15 +32,15 @@ def main():
                 if badSeq:
                     prot = remove_chars(prot, NNAA)
                 p.write(f"{prot}\n")
-                labels.append(line[1][:-1])
+                labels.append(line[1].strip())
 
     
-    result = subprocess.run([f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o features.txt -j AAC"], shell=True)
+    result = subprocess.run([f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o features.csv -j AAC"], shell=True)
 
     if result.returncode == 0:
-        features = pd.read_csv("features.txt")
+        features = pd.read_csv("features.csv")
         features["Labels"] = labels
-        features.to_csv("features.txt")
+        features.to_csv("features.csv")
     else:
         print("There was an error while using pfeature to compute features")
         sys.exit()
