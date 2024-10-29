@@ -53,7 +53,7 @@ def main():
 
 
     # list of features and array of commands
-    features = ["AAC", "DPC"]
+    features = ["DPC", "TPC", "BTC", "AAI", "RRI", "PRI", "DDR", "SEP", "SER", "SPC", "ACR", "CTC", "CeTD", "PAAC", "APAAC", "QSO", "SOC"]
     commands = [f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o {feature}_features.csv -j {feature}" for feature in features]
 
     results = []
