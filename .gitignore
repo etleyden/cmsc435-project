@@ -2,3 +2,7 @@ features.csv
 proteins.txt
 tempfile_out
 *-*-*-*-*
+.idea
+.idea*
+
+*.log
