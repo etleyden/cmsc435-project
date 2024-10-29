@@ -53,29 +53,19 @@ def main():
 
 
     # list of features and array of commands
-    features = ["AAC", "PCP"]
+    features = ["AAC", "DPC"]
     commands = [f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o {feature}_features.csv -j {feature}" for feature in features]
 
-    # run the commands in their own processes
-    pids = []
-    for idx, command in enumerate(commands):
-        pid = os.fork()
-        if pid == 0:
-            if not os.path.exists(f"{features[idx]}_features.csv"):
-                print(f"Computing {features[idx]}...")
-                result = subprocess.run(command, shell=True)
-                print(f"Finished computing {features[idx]}")
-                os._exit(result.returncode)
-            else:
-                print(f"Features {features[idx]} already computed. Skipping.")
-                os._exit(0)
-        else:
-            pids.append(pid)
-
     results = []
-    # wait for the processes to complete
-    for pid in pids:
-        results.append(os.waitpid(pid, 0)[1])
+    # run the commands in their own processes
+    for idx, command in enumerate(commands):
+        if not os.path.exists(f"{features[idx]}_features.csv"):
+            print(f"Computing {features[idx]}...")
+            results.append(subprocess.run(command, shell=True))
+            print(f"Finished computing {features[idx]}")
+        else:
+            print(f"Features {features[idx]} already computed. Skipping.")
+
 
     final_df = pd.DataFrame()
     for idx, feature in enumerate(features):
