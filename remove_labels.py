@@ -53,7 +53,7 @@ def main():
 
     
     # list of features and array of commands
-    features = ["AAC", "ATC"]
+    features = ["AAC", "PCP"]
     commands = [f"python pfeature_comp/src/pfeature_comp.py -i proteins.txt -o {feature}_features.csv -j {feature}" for feature in features]
 
     # run the commands in their own processes
@@ -83,9 +83,9 @@ def main():
             final_df = pd.concat([final_df, features], axis=1)
         else:
             print(f"Feature set: {feature} threw an error")
-        features["Labels"] = labels
+        final_df["Labels"] = labels
 
-        features.to_csv("features.csv", index=False)
+        final_df.to_csv("features.csv", index=False)
     else:
         print("There was an error while using pfeature to compute features")
         sys.exit()
