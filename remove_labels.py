@@ -61,8 +61,12 @@ def main():
     for command in commands:
         pid = os.fork()
         if pid == 0:
-            result = subprocess.run(command, shell=True)
-            os._exit(result.returncode)
+            if not os.path.exists(f"{feature}_features.csv"):
+                result = subprocess.run(command, shell=True)
+                os._exit(result.returncode)
+            else:
+                print(f"Features {feature} already computed. Skipping.")
+                os._exit(0)
         else:
             pids.append(pid)
 
