@@ -13,7 +13,7 @@
     <parameter key="encoding" value="SYSTEM"/>
     <process expanded="true">
       <operator activated="true" class="read_csv" compatibility="10.5.000" expanded="true" height="68" name="Read CSV" width="90" x="45" y="187">
-        <parameter key="csv_file" value="/Users/etleyden/Documents/_SCHOOL/CMSC 435/Project/features.csv"/>
+        <parameter key="csv_file" value="/Users/etleyden/Documents/_SCHOOL/CMSC 435/Project/normalized_labeled_data.csv"/>
         <parameter key="column_separators" value=","/>
         <parameter key="trim_lines" value="false"/>
         <parameter key="multiline_text" value="false"/>
@@ -45,23 +45,25 @@
           <parameter key="Labels" value="label"/>
         </list>
       </operator>
-      <operator activated="true" class="concurrency:cross_validation" compatibility="10.5.000" expanded="true" height="145" name="Cross Validation" width="90" x="380" y="187">
+      <operator activated="true" class="concurrency:cross_validation" compatibility="10.5.000" expanded="true" height="145" name="Cross Validation" width="90" x="447" y="187">
         <parameter key="split_on_batch_attribute" value="false"/>
         <parameter key="leave_one_out" value="false"/>
-        <parameter key="number_of_folds" value="10"/>
+        <parameter key="number_of_folds" value="5"/>
         <parameter key="sampling_type" value="automatic"/>
         <parameter key="use_local_random_seed" value="false"/>
         <parameter key="local_random_seed" value="1992"/>
         <parameter key="enable_parallel_execution" value="true"/>
         <process expanded="true">
-          <operator activated="true" class="neural_net" compatibility="10.5.000" expanded="true" height="82" name="Neural Net" width="90" x="112" y="34">
-            <list key="hidden_layers"/>
+          <operator activated="true" class="neural_net" compatibility="10.5.000" expanded="true" height="82" name="Neural Net" width="90" x="45" y="34">
+            <list key="hidden_layers">
+              <parameter key="first layer" value="20"/>
+            </list>
             <parameter key="training_cycles" value="200"/>
             <parameter key="learning_rate" value="0.01"/>
             <parameter key="momentum" value="0.9"/>
             <parameter key="decay" value="false"/>
             <parameter key="shuffle" value="true"/>
-            <parameter key="normalize" value="true"/>
+            <parameter key="normalize" value="false"/>
             <parameter key="error_epsilon" value="1.0E-4"/>
             <parameter key="use_local_random_seed" value="false"/>
             <parameter key="local_random_seed" value="1992"/>
@@ -118,11 +120,13 @@
       <connect from_op="Read CSV" from_port="output" to_op="Set Role" to_port="example set input"/>
       <connect from_op="Set Role" from_port="example set output" to_op="Cross Validation" to_port="example set"/>
       <connect from_op="Cross Validation" from_port="model" to_port="result 2"/>
+      <connect from_op="Cross Validation" from_port="example set" to_port="result 3"/>
       <connect from_op="Cross Validation" from_port="performance 1" to_port="result 1"/>
       <portSpacing port="source_input 1" spacing="0"/>
       <portSpacing port="sink_result 1" spacing="0"/>
       <portSpacing port="sink_result 2" spacing="0"/>
       <portSpacing port="sink_result 3" spacing="0"/>
+      <portSpacing port="sink_result 4" spacing="0"/>
     </process>
   </operator>
 </process>
