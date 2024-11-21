@@ -7,10 +7,11 @@ def main():
         print("Usage: python normalizeandlabel.py [FEATURE1.CSV, FEATURE2.CSV,] [LABELCSV]. Exiting...")
         sys.exit()
 
-    fname = sys.argv[1:-1]
-    labels = sys.argv[-1:][0]
+    # fname = sys.argv[1:-1]
+    fname = sys.argv[1:]
+    # labels = sys.argv[-1:][0]
 
-    print(f"Features: {fname}\nLabels: {labels}")
+    # print(f"Features: {fname}\nLabels: {labels}")
     out = pd.DataFrame()
     
     try:
@@ -23,10 +24,10 @@ def main():
             out =  pd.concat([out, feats], axis=1)
 
         # append labels
-        labels = pd.read_csv(labels)
-        out = pd.concat([out, labels], axis=1)
+        # labels = pd.read_csv(labels)
+        # out = pd.concat([out, labels], axis=1)
 
-        out.to_csv("normalized_labeled_data.csv", index=False)
+        out.to_csv("normalized_data.csv", index=False)
 
     except Exception as e:
         print("Exception " + e + " has occured.")

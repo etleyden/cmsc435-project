@@ -1,23 +1,19 @@
 import pandas as pd
 
-path_to_aac = "labeled_features/PAAC_PCP.csv"
-output_path = "labeled_features/PAAC_PCP_filtered.csv"
+path_to_aac = "labeled_features/QSO_PAAC_PCP.csv"
+output_path = "labeled_features/QSO_PAAC_PCP_filtered.csv"
 
-deleteFeatures = True
+deleteFeatures = False
 
 feature_selection = [
-"PCP_SS_ST",
-"PAAC1_W",
-"PAAC1_F",
-"PCP_NT",
-"PCP_Z4",
-"PAAC1_S",
-"PAAC1_M",
-"PAAC1_N",
-"PAAC1_Q",
-"PAAC1_C",
-"PCP_SC",
-"PAAC1_L"
+"QSO1_SC_M",
+"PCP_Z1",
+"PAAC1_E",
+"QSO1_G_P",
+"PCP_PC",
+"QSO1_SC_C",
+"PCP_Z3",
+"QSO1_SC_N"
 ]
 df = pd.read_csv(path_to_aac)
 new_df = pd.DataFrame()
